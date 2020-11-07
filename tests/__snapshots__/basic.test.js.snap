@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should be able to transform file contents: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/transformed-main.js",
+]
+`;
+
+exports[`should deleteOriginalAsset: assets 1`] = `
+Array [
+  "js/deleteOriginalAsset-main.js",
+  "js/deleteOriginalAsset-main.js.map",
+]
+`;
+
+exports[`should do copy assets to the new location and interpolate-name: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/main.js-main.js",
+]
+`;
+
+exports[`should do copy assets to the new location for a given filter: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/main.js",
+]
+`;
+
+exports[`should do nothing and initialize without any errors : assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+]
+`;
+
+exports[`should do nothing and just update the existing files: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+]
+`;
