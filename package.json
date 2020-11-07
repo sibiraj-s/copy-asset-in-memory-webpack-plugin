@@ -22,6 +22,7 @@
   "keywords": [
     "webpack-plugin",
     "copy-plugin",
+    "copy-webpack-plugin",
     "copy-asset-in-memory-webpack-plugin",
     "copy"
   ],
