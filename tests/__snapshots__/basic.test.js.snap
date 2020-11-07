@@ -44,3 +44,10 @@ Array [
   "main.js.map",
 ]
 `;
+
+exports[`should do nothing when there is no change in filename: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+]
+`;

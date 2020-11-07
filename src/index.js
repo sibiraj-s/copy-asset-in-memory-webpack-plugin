@@ -1,5 +1,8 @@
+const { validate } = require('schema-utils');
 const { Compilation, ModuleFilenameHelpers, sources } = require('webpack');
 const { interpolateName } = require('loader-utils');
+
+const optionsSchema = require('./options.schema.json')
 
 const PLUGIN_NAME = 'CopyAssetInMemoryPlugin';
 
@@ -15,6 +18,11 @@ const isTemplate = (name) => {
 
 class CopyAssetInMemoryPlugin {
   constructor(options) {
+    validate(optionsSchema, options, {
+      name: PLUGIN_NAME,
+      baseDataPath: 'options',
+    })
+
     this.options = options;
 
     this.moduleOption = {
@@ -49,7 +57,7 @@ class CopyAssetInMemoryPlugin {
 
             const result = {};
 
-            if (typeof transform === 'function') {
+            if (transform) {
               const buffer = asset.source.source();
               const transformed = await transform(buffer);
               result.source = new sources.RawSource(transformed);
@@ -57,10 +65,8 @@ class CopyAssetInMemoryPlugin {
               result.source = asset.source;
             }
 
-            if (typeof transformPath === 'function') {
+            if (transformPath) {
               result.name = await transformPath(assetName);
-            } else {
-              result.name = assetName;
             }
 
             result.info = {
@@ -79,6 +85,11 @@ class CopyAssetInMemoryPlugin {
                   content: result.source.source(),
                 },
               );
+            }
+
+            const existingAsset = compilation.getAsset(result.name)
+            if (existingAsset) {
+              return
             }
 
             if (deleteOriginalAssets) {

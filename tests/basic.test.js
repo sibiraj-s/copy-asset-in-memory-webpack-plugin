@@ -39,10 +39,26 @@ it('should do nothing and just update the existing files', async () => {
   expect(assets.length).toBe(2);
 });
 
+it('should do nothing when there is no change in filename', async () => {
+  const compiler = getCompiler();
+
+  new CopyAssetInMemoryPlugin({
+    test: /.js$/,
+    transformPath: (fileName) => fileName
+  }).apply(compiler);
+
+  const stats = await compile(compiler);
+
+  const assets = getAssetNames(stats);
+
+  expect(assets).toMatchSnapshot('assets');
+  expect(assets.length).toBe(2);
+});
+
 it('should do copy assets to the new location for a given filter', async () => {
   const compiler = getCompiler();
 
-  const transformPath = jest.fn((fileName) => `js/${fileName}`);
+  const transformPath = (fileName) => `js/${fileName}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
@@ -55,7 +71,6 @@ it('should do copy assets to the new location for a given filter', async () => {
 
   expect(assets).toMatchSnapshot('assets');
   expect(assets.includes('js/main.js')).toBeTruthy();
-  expect(transformPath).toBeCalled();
   expect(assets.length).toBe(3);
 });
 
@@ -63,7 +78,7 @@ it('should be able to transform file contents', async () => {
   const compiler = getCompiler();
 
   const newContent = 'new';
-  const transform = jest.fn((content) => `${content}${newContent}`);
+  const transform = (content) => `${content}${newContent}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
@@ -79,7 +94,6 @@ it('should be able to transform file contents', async () => {
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(transform).toBeCalled();
   expect(originalFileSize + newContent.length).toEqual(transformedFileSize);
   expect(assets.length).toBe(3);
 });
@@ -88,8 +102,8 @@ it('should do copy assets to the new location and interpolate-name', async () =>
   const compiler = getCompiler();
 
   const newContent = 'new';
-  const transformPath = jest.fn((fileName) => `js/[path]-${fileName}`);
-  const transform = jest.fn((content) => `${content}${newContent}`);
+  const transformPath = (fileName) => `js/[path]-${fileName}`;
+  const transform = (content) => `${content}${newContent}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
@@ -102,15 +116,13 @@ it('should do copy assets to the new location and interpolate-name', async () =>
 
   expect(assets).toMatchSnapshot('assets');
   expect(assets.includes('js/[path]-main.js')).toBeFalsy();
-  expect(transformPath).toBeCalled();
-  expect(transform).toBeCalled();
   expect(assets.length).toBe(3);
 });
 
 it('should deleteOriginalAsset', async () => {
   const compiler = getCompiler();
 
-  const transformPath = jest.fn((fileName) => `js/deleteOriginalAsset-${fileName}`);
+  const transformPath = (fileName) => `js/deleteOriginalAsset-${fileName}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.*/,
@@ -122,6 +134,5 @@ it('should deleteOriginalAsset', async () => {
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(transformPath).toBeCalled();
   expect(assets.length).toBe(2);
 });
