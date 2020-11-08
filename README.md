@@ -66,7 +66,6 @@ module.exports = {
 
 ```js
 // webpack.config.js
-const { Compilation } = require("webpack");
 const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
 
 module.exports = {
@@ -86,7 +85,6 @@ module.exports = {
 
 ```js
 // webpack.config.js
-const { Compilation } = require("webpack");
 const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
 
 module.exports = {
