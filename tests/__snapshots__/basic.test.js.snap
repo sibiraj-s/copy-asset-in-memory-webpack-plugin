@@ -1,5 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should add contenthash to the copied asset: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/file-87fd9a78.js",
+]
+`;
+
 exports[`should be able to transform file contents: assets 1`] = `
 Array [
   "main.js",

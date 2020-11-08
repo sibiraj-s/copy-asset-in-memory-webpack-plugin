@@ -79,9 +79,14 @@ class CopyAssetInMemoryPlugin {
 
             result.info = {
               ...asset.info,
-              copied: true,
-              immutable: isImmutable(result.name),
+              copied: true
             };
+
+            // check the transformed for immutable
+            const immutable = isImmutable(result.name)
+            if (immutable) {
+              result.info.immutable = true
+            }
 
             if (isTemplate(result.name)) {
               result.name = interpolateName(

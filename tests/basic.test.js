@@ -13,6 +13,15 @@ const getAssetSize = (stats, assetName) => {
   return assets[assetName].size();
 };
 
+const hasAsset = (stats, assetName) => {
+  const assets = getAssetNames(stats)
+  if(assetName instanceof RegExp) {
+    return assets.some(name => assetName.test(name))
+  }
+
+  return assets.includes(assetName)
+}
+
 it('should do nothing and initialize without any errors ', async () => {
   const compiler = getCompiler();
 
@@ -70,7 +79,7 @@ it('should do copy assets to the new location for a given filter', async () => {
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(assets.includes('js/main.js')).toBeTruthy();
+  expect(hasAsset(stats, 'js/main.js')).toBeTruthy();
   expect(assets.length).toBe(3);
 });
 
@@ -115,7 +124,7 @@ it('should do copy assets to the new location and interpolate-name', async () =>
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(assets.includes('js/[path]-main.js')).toBeFalsy();
+  expect(hasAsset(stats, 'js/[path]-main.js')).toBeFalsy();
   expect(assets.length).toBe(3);
 });
 
@@ -135,4 +144,22 @@ it('should deleteOriginalAsset', async () => {
 
   expect(assets).toMatchSnapshot('assets');
   expect(assets.length).toBe(2);
+});
+
+it('should add contenthash to the copied asset', async () => {
+  const compiler = getCompiler();
+
+  const transformPath = () => `js/[name]-[contenthash:8].[ext]`;
+
+  new CopyAssetInMemoryPlugin({
+    test: /.js$/,
+    transformPath,
+  }).apply(compiler);
+
+  const stats = await compile(compiler);
+  const assets = getAssetNames(stats);
+
+  expect(assets).toMatchSnapshot('assets');
+  expect(hasAsset(stats, /js\/file-[a-z-0-9]{0,8}.js$/)).toBeTruthy()
+  expect(assets.length).toBe(3);
 });
