@@ -41,10 +41,27 @@ module.exports = {
 
 ### Options
 
-- **test** - [`String|RegExp|Array<String|RegExp>`] - Include all assets that pass test assertion
-- **include** - [`String|RegExp|Array<String|RegExp>`] - Include all assets matching any of these conditions
-- **exclude** - [`String|RegExp|Array<String|RegExp>`] - Exclude all assets matching any of these conditions
-- **stage** - Refer https://webpack.js.org/api/compilation-hooks/#processassets for more info.
+#### test
+
+Include all assets that pass test assertion
+
+Type: `String|RegExp|Array<String|RegExp>`. Default: `undefined`
+
+#### include
+
+Include all assets matching any of these conditions
+
+Type: `String|RegExp|Array<String|RegExp>`. Default: `undefined`
+
+#### exclude
+
+Exclude all assets matching any of these conditions
+
+Type: `String|RegExp|Array<String|RegExp>`. Default: `undefiend`
+
+#### stage
+
+Refer https://webpack.js.org/api/compilation-hooks/#processassets for more info.
 
 ```js
 // webpack.config.js
@@ -62,7 +79,11 @@ module.exports = {
 };
 ```
 
-- **transform** [`Function`] - Allows to modify the file contents.
+#### transform
+
+Allows to modify the file contents.
+
+Type: `Function`. Default: `undefined`
 
 ```js
 // webpack.config.js
@@ -81,7 +102,11 @@ module.exports = {
 };
 ```
 
-- **transformPath** [`Function`] - Allows to modify the file path. This executes after transform function
+#### transformPath
+
+Allows to modify the file path. This executes after transform function
+
+Type: `Function`. Default: `undefined`
 
 ```js
 // webpack.config.js
@@ -91,15 +116,19 @@ module.exports = {
   plugins: [
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
-      transformPath: (fileName) => `${js}/filename`,
+      transformPath: (fileName) => `${js}/filename`, // copies all files into `js` folder
     }),
   ],
 };
 ```
 
-- **deleteOriginalAssets** [`boolean`] - Whether to delete the original assets or not. Defaults to `false`
+#### deleteOriginalAssets
 
-**Caveats**
+Whether to delete the original assets or not.
+
+Type: `boolean`. Default: `false`
+
+### Caveats
 
 - assets cannot be copied outside output directory
 - deleting an asset via `deleteOriginalAssets` will also delete its sourcemap
