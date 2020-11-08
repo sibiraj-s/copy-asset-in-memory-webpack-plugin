@@ -38,6 +38,8 @@ class CopyAssetInMemoryPlugin {
     } = this.options;
 
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
+      const logger = compilation.getLogger(PLUGIN_NAME)
+
       compilation.hooks.processAssets.tapPromise(
         {
           name: PLUGIN_NAME,
@@ -55,9 +57,13 @@ class CopyAssetInMemoryPlugin {
           const assetPromises = assetNames.map(async (assetName) => {
             const asset = compilation.getAsset(assetName);
 
+            logger.log(`processing: ${assetName}`)
+
             const result = {};
 
             if (transform) {
+              logger.log(`transforming content for '${assetName}'...`);
+
               const buffer = asset.source.source();
               const transformed = await transform(buffer);
               result.source = new sources.RawSource(transformed);
@@ -66,6 +72,8 @@ class CopyAssetInMemoryPlugin {
             }
 
             if (transformPath) {
+              logger.log(`transforming path for '${assetName}'...`);
+
               result.name = await transformPath(assetName);
             }
 
@@ -89,13 +97,18 @@ class CopyAssetInMemoryPlugin {
 
             const existingAsset = compilation.getAsset(result.name)
             if (existingAsset) {
+              logger.log(`asset ${assetName} already exists in compilation. skipping...`);
+
               return
             }
 
             if (deleteOriginalAssets) {
+              logger.log(`deleting original original asset ${assetName}`);
+
               compilation.deleteAsset(assetName);
             }
 
+            logger.log(`asset ${result.name} added to compilation`);
             compilation.emitAsset(result.name, result.source, result.info);
           });
 
