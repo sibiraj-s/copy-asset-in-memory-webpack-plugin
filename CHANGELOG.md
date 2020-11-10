@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v1.0.2 (2020-11-10)
+
+#### Bug Fixes
+
+- add strict schema validations ([73d4fba](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/73d4fba))
+
 ## v1.0.1 (2020-11-08)
 
 #### Bug Fixes
