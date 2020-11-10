@@ -50,10 +50,6 @@ class CopyAssetInMemoryPlugin {
             return ModuleFilenameHelpers.matchObject.bind(undefined, this.options)(assetName);
           });
 
-          if (!transform && !transformPath) {
-            return
-          }
-
           const assetPromises = assetNames.map(async (assetName) => {
             const asset = compilation.getAsset(assetName);
 

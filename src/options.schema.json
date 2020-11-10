@@ -35,6 +35,10 @@
   },
   "type": "object",
   "additionalProperties": false,
+  "required": [
+    "test",
+    "transformPath"
+  ],
   "properties": {
     "test": {
       "description": "Include all assets that pass test assertion.",

@@ -22,32 +22,6 @@ const hasAsset = (stats, assetName) => {
   return assets.includes(assetName)
 }
 
-it('should do nothing and initialize without any errors ', async () => {
-  const compiler = getCompiler();
-
-  new CopyAssetInMemoryPlugin({}).apply(compiler);
-  const stats = await compile(compiler);
-
-  const assets = getAssetNames(stats);
-  expect(assets).toMatchSnapshot('assets');
-  expect(assets.length).toBe(2);
-});
-
-it('should do nothing and just update the existing files', async () => {
-  const compiler = getCompiler();
-
-  new CopyAssetInMemoryPlugin({
-    test: /.js$/,
-  }).apply(compiler);
-
-  const stats = await compile(compiler);
-
-  const assets = getAssetNames(stats);
-
-  expect(assets).toMatchSnapshot('assets');
-  expect(assets.length).toBe(2);
-});
-
 it('should do nothing when there is no change in filename', async () => {
   const compiler = getCompiler();
 
