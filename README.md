@@ -4,6 +4,7 @@
 [![License](https://badgen.net/github/license/sibiraj-s/copy-asset-in-memory-webpack-plugin)](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin)
 [![Version](https://badgen.net/npm/v/copy-asset-in-memory-webpack-plugin)](https://npmjs.com/copy-asset-in-memory-webpack-plugin)
 [![Node Version](https://badgen.net/npm/node/copy-asset-in-memory-webpack-plugin)](https://npmjs.com/copy-asset-in-memory-webpack-plugin)
+[![Webpack Version](https://badgen.net/badge/webpack/%3E=5/orange)](https://webpack.js.org/)
 
 > Copy assets in webpack memory
 
