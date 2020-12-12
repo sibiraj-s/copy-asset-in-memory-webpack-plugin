@@ -14,6 +14,16 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.0 (2020-12-12)
+
+#### Features
+
+- support string in asset destination ([591fc26](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/591fc26))
+
+#### Breaking Changes
+
+- rename `transformPath` to `to` ([591fc26](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/591fc26))
+
 ## v1.0.2 (2020-11-10)
 
 #### Bug Fixes
