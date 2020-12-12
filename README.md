@@ -34,7 +34,7 @@ module.exports = {
   plugins: [
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
-      to: (fileName) => `${js}/filename`,
+      to: "js",
     }),
   ],
 };
