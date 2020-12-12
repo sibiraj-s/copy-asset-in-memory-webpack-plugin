@@ -1,3 +1,6 @@
+const fs = require('fs');
+const path = require('path');
+
 const getCompiler = require('./helpers/getCompiler');
 const compile = require('./helpers/compile');
 
@@ -15,19 +18,23 @@ const getAssetSize = (stats, assetName) => {
 
 const hasAsset = (stats, assetName) => {
   const assets = getAssetNames(stats)
-  if(assetName instanceof RegExp) {
+  if (assetName instanceof RegExp) {
     return assets.some(name => assetName.test(name))
   }
 
   return assets.includes(assetName)
 }
 
+beforeEach(async () => {
+  await fs.promises.rm(path.join(__dirname, '..', 'dist'), { recursive: true, force: true })
+})
+
 it('should do nothing when there is no change in filename', async () => {
   const compiler = getCompiler();
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
-    transformPath: (fileName) => fileName
+    to: (fileName) => fileName
   }).apply(compiler);
 
   const stats = await compile(compiler);
@@ -41,15 +48,31 @@ it('should do nothing when there is no change in filename', async () => {
 it('should do copy assets to the new location for a given filter', async () => {
   const compiler = getCompiler();
 
-  const transformPath = (fileName) => `js/${fileName}`;
+  const to = (fileName) => `js/${fileName}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
-    transformPath,
+    to,
   }).apply(compiler);
 
   const stats = await compile(compiler);
 
+  const assets = getAssetNames(stats);
+
+  expect(assets).toMatchSnapshot('assets');
+  expect(hasAsset(stats, 'js/main.js')).toBeTruthy();
+  expect(assets.length).toBe(3);
+});
+
+it('should do copy assets to the new location when destination is a string', async () => {
+  const compiler = getCompiler();
+
+  new CopyAssetInMemoryPlugin({
+    test: /.js$/,
+    to: 'js',
+  }).apply(compiler);
+
+  const stats = await compile(compiler);
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
@@ -65,7 +88,7 @@ it('should be able to transform file contents', async () => {
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
-    transformPath: (fileName) => `js/transformed-${fileName}`,
+    to: (fileName) => `js/transformed-${fileName}`,
     transform,
   }).apply(compiler);
 
@@ -85,12 +108,12 @@ it('should do copy assets to the new location and interpolate-name', async () =>
   const compiler = getCompiler();
 
   const newContent = 'new';
-  const transformPath = (fileName) => `js/[path]-${fileName}`;
+  const to = (fileName) => `js/[path]-${fileName}`;
   const transform = (content) => `${content}${newContent}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
-    transformPath,
+    to,
     transform,
   }).apply(compiler);
 
@@ -105,11 +128,11 @@ it('should do copy assets to the new location and interpolate-name', async () =>
 it('should deleteOriginalAsset', async () => {
   const compiler = getCompiler();
 
-  const transformPath = (fileName) => `js/deleteOriginalAsset-${fileName}`;
+  const to = (fileName) => `js/deleteOriginalAsset-${fileName}`;
 
   new CopyAssetInMemoryPlugin({
     test: /.*/,
-    transformPath,
+    to,
     deleteOriginalAssets: true,
   }).apply(compiler);
 
@@ -123,11 +146,11 @@ it('should deleteOriginalAsset', async () => {
 it('should add contenthash to the copied asset', async () => {
   const compiler = getCompiler();
 
-  const transformPath = () => `js/[name]-[contenthash:8].[ext]`;
+  const to = () => `js/[name]-[contenthash:8].[ext]`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
-    transformPath,
+    to,
   }).apply(compiler);
 
   const stats = await compile(compiler);

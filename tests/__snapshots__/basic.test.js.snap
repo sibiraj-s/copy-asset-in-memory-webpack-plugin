@@ -31,6 +31,14 @@ Array [
 ]
 `;
 
+exports[`should do copy assets to the new location for a given filter when destination is a string: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/main.js",
+]
+`;
+
 exports[`should do copy assets to the new location for a given filter: assets 1`] = `
 Array [
   "main.js",

@@ -8,7 +8,7 @@ interface Options {
   exclude: Rule;
   stage: number;
   transform: (buffer: Buffer) => string;
-  transformPath: (fileName: string) => string;
+  to: (fileName: string) => string;
   deleteOriginalAssets: boolean;
 }
 

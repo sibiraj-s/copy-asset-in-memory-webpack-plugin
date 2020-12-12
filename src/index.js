@@ -1,3 +1,4 @@
+const path = require('path');
 const { validate } = require('schema-utils');
 const { Compilation, ModuleFilenameHelpers, sources } = require('webpack');
 const { interpolateName } = require('loader-utils');
@@ -34,7 +35,7 @@ class CopyAssetInMemoryPlugin {
 
   apply(compiler) {
     const {
-      stage, transform, transformPath, deleteOriginalAssets,
+      stage, transform, to, deleteOriginalAssets,
     } = this.options;
 
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
@@ -67,10 +68,14 @@ class CopyAssetInMemoryPlugin {
               result.source = asset.source;
             }
 
-            if (transformPath) {
-              logger.log(`transforming path for '${assetName}'...`);
+            if(typeof to === 'string') {
+              result.name  = path.join(to, assetName)
+              logger.log(`result asset destination '${result.name}'...`);
+            }
 
-              result.name = await transformPath(assetName);
+            if (typeof to === 'function') {
+              logger.log(`transforming path for '${assetName}'...`);
+              result.name = await to(assetName);
             }
 
             result.info = {

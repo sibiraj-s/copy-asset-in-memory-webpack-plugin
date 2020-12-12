@@ -37,7 +37,7 @@
   "additionalProperties": false,
   "required": [
     "test",
-    "transformPath"
+    "to"
   ],
   "properties": {
     "test": {
@@ -72,9 +72,17 @@
       "description": "Transform asset content",
       "instanceof": "Function"
     },
-    "transformPath": {
-      "description": "Transform asset path",
-      "instanceof": "Function"
+    "to": {
+      "description": "Asset destination",
+      "anyOf": [
+        {
+          "instanceof": "Function"
+        },
+        {
+          "type": "string",
+          "minLength": 1
+        }
+      ]
     },
     "deleteOriginalAssets": {
       "description": "Whether to delete the original assets or not.",

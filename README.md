@@ -34,7 +34,7 @@ module.exports = {
   plugins: [
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
-      transformPath: (fileName) => `${js}/filename`,
+      to: (fileName) => `${js}/filename`,
     }),
   ],
 };
@@ -74,7 +74,31 @@ module.exports = {
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
       stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER, // Default
-      transformPath: (fileName) => `${js}/filename`,
+      to: (fileName) => `${js}/filename`,
+    }),
+  ],
+};
+```
+
+#### to
+
+Asset destination, allows to modify the file path.
+
+Type: `Function | string`. Default: `undefined`
+
+```js
+// webpack.config.js
+const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
+
+module.exports = {
+  plugins: [
+    new CopyAssetInMemoryPlugin({
+      test: /.js$/,
+      to: (fileName) => `${js}/filename`, // copies all files into `js` folder
+    }),
+    new CopyAssetInMemoryPlugin({
+      test: /.svg$/,
+      to: "assets", // copies all files into `assets` folder
     }),
   ],
 };
@@ -94,30 +118,10 @@ module.exports = {
   plugins: [
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
-      transformPath: (fileName) => `${js}/filename`,
+      to: (fileName) => `${js}/filename`,
       // The `content` argument is a [`Buffer`](https://nodejs.org/api/buffer.html) object
       // it could be converted to a `String` to be processed using `content.toString()`
       transform: (content) => "newContent",
-    }),
-  ],
-};
-```
-
-#### transformPath
-
-Allows to modify the file path. This executes after transform function
-
-Type: `Function`. Default: `undefined`
-
-```js
-// webpack.config.js
-const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
-
-module.exports = {
-  plugins: [
-    new CopyAssetInMemoryPlugin({
-      test: /.js$/,
-      transformPath: (fileName) => `${js}/filename`, // copies all files into `js` folder
     }),
   ],
 };
