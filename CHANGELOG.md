@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v2.0.1 (2020-12-14)
+
+#### Internal
+
+- update LICENSE ([ea2ec34](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/ea2ec34))
+
 ## v2.0.0 (2020-12-12)
 
 #### Features
