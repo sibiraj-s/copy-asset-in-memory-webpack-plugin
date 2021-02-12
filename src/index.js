@@ -1,6 +1,5 @@
 const path = require('path');
 const { validate } = require('schema-utils');
-const { Compilation, ModuleFilenameHelpers, sources } = require('webpack');
 const { interpolateName } = require('loader-utils');
 
 const optionsSchema = require('./options.schema.json')
@@ -38,6 +37,10 @@ class CopyAssetInMemoryPlugin {
       stage, transform, to, deleteOriginalAssets,
     } = this.options;
 
+    const { webpack } = compiler
+    const { Compilation, ModuleFilenameHelpers } = webpack
+    const { RawSource } = webpack.sources;
+
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
       const logger = compilation.getLogger(PLUGIN_NAME)
 
@@ -63,7 +66,7 @@ class CopyAssetInMemoryPlugin {
 
               const buffer = asset.source.source();
               const transformed = await transform(buffer);
-              result.source = new sources.RawSource(transformed);
+              result.source = new RawSource(transformed);
             } else {
               result.source = asset.source;
             }
