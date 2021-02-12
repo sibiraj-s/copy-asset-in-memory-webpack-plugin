@@ -1,6 +1,3 @@
-const fs = require('fs');
-const path = require('path');
-
 const getCompiler = require('./helpers/getCompiler');
 const compile = require('./helpers/compile');
 
@@ -24,10 +21,6 @@ const hasAsset = (stats, assetName) => {
 
   return assets.includes(assetName)
 }
-
-beforeEach(async () => {
-  await fs.promises.rm(path.join(__dirname, '..', 'dist'), { recursive: true, force: true })
-})
 
 it('should do nothing when there is no change in filename', async () => {
   const compiler = getCompiler();
