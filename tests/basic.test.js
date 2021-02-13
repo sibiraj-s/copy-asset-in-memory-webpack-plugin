@@ -1,6 +1,7 @@
 const getCompiler = require('./helpers/getCompiler');
 const compile = require('./helpers/compile');
 
+const CompressionPlugin = require('compression-webpack-plugin');
 const CopyAssetInMemoryPlugin = require('../src/index.js');
 
 const getAssetNames = (stats) => {
@@ -152,4 +153,29 @@ it('should add contenthash to the copied asset', async () => {
   expect(assets).toMatchSnapshot('assets');
   expect(hasAsset(stats, /js\/file-[a-z-0-9]{0,8}.js$/)).toBeTruthy()
   expect(assets.length).toBe(3);
+});
+
+it('should work along with compression-webpack-plugin', async () => {
+  const compiler = getCompiler();
+
+  const to = (fileName) => `js/${fileName}`;
+
+  new CopyAssetInMemoryPlugin({
+    test: /.*.js(.map)?$/,
+    to,
+  }).apply(compiler);
+
+  new CompressionPlugin({
+    filename: '[file]',
+    exclude: /js/,
+    deleteOriginalAssets: 'keep-source-map',
+    minRatio: 10,
+  }).apply(compiler)
+
+  const stats = await compile(compiler);
+  const assets = getAssetNames(stats);
+
+  expect(assets).toMatchSnapshot('assets');
+  expect(hasAsset(stats, 'js/main.js')).toBeTruthy()
+  expect(assets.length).toBe(4);
 });

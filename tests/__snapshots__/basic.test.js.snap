@@ -53,3 +53,12 @@ Array [
   "main.js.map",
 ]
 `;
+
+exports[`should work along with compression-webpack-plugin: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/main.js",
+  "js/main.js.map",
+]
+`;

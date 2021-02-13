@@ -8,6 +8,9 @@ const getCompiler = (entry) => {
     mode: 'production',
     devtool: 'source-map',
     context: path.resolve(__dirname, '../fixtures'),
+    output: {
+      clean: true,
+    }
   });
 
   return compiler;
