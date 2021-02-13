@@ -14,6 +14,16 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v3.0.0 (2021-02-13)
+
+#### Bug Fixes
+
+- prefer modules provided by compiler ([87126e7](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/87126e7))
+
+#### Breaking Changes
+
+- default stage is now `PROCESS_ASSETS_STAGE_SUMMARIZE` ([cd8199d](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/cd8199d))
+
 ## v2.0.1 (2020-12-14)
 
 #### Internal
