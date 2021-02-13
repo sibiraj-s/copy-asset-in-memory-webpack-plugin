@@ -73,7 +73,7 @@ module.exports = {
   plugins: [
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
-      stage: Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER, // Default
+      stage: Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE, // Default
       to: (fileName) => `${js}/filename`,
     }),
   ],
