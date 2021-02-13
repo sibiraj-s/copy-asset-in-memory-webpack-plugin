@@ -47,7 +47,7 @@ class CopyAssetInMemoryPlugin {
       compilation.hooks.processAssets.tapPromise(
         {
           name: PLUGIN_NAME,
-          stage: stage || Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE_TRANSFER,
+          stage: stage || Compilation.PROCESS_ASSETS_STAGE_SUMMARIZE,
         },
         async (assets) => {
           const assetNames = Object.keys(assets).filter((assetName) => {
