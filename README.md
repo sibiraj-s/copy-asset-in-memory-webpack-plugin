@@ -137,3 +137,7 @@ Type: `boolean`. Default: `false`
 
 - assets cannot be copied outside output directory
 - deleting an asset via `deleteOriginalAssets` will also delete its sourcemap
+
+### Related Plugins
+
+- [replace-asset-name-webpack-plugin](https://github.com/sibiraj-s/replace-asset-name-webpack-plugin)
