@@ -4,12 +4,12 @@ type Rule = string | RegExp | Array<string | RegExp>;
 
 interface Options {
   test: Rule;
-  include: Rule;
-  exclude: Rule;
-  stage: number;
-  transform: (buffer: Buffer) => string;
-  to: (fileName: string) => string;
-  deleteOriginalAssets: boolean;
+  include?: Rule;
+  exclude?: Rule;
+  stage?: number;
+  transform?: (buffer: Buffer) => string;
+  to: string | ((fileName: string) => string);
+  deleteOriginalAssets?: boolean;
 }
 
 declare class CopyAssetInMemoryPlugin {
