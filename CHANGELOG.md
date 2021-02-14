@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v3.0.1 (2021-02-14)
+
+#### Bug Fixes
+
+- update typings ([d949a9f](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/d949a9f))
+
 ## v3.0.0 (2021-02-13)
 
 #### Bug Fixes
