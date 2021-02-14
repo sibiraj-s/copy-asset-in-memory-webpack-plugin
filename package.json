@@ -27,6 +27,9 @@
     "copy-asset-in-memory-webpack-plugin",
     "copy"
   ],
+  "peerDependencies": {
+    "webpack": "^5.20.0"
+  },
   "dependencies": {
     "loader-utils": "^2.0.0",
     "schema-utils": "^3.0.0"
