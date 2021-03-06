@@ -1,1 +1,1 @@
-export const greeting = 'Hello World!';
+window.greeting = 'Hello World!';

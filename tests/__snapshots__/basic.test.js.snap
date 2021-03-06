@@ -1,10 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`should add contenthash to the copied asset with given salt: assets 1`] = `
+Array [
+  "main.js",
+  "main.js.map",
+  "js/main-6f8c66dd.js",
+]
+`;
+
 exports[`should add contenthash to the copied asset: assets 1`] = `
 Array [
   "main.js",
   "main.js.map",
-  "js/main-87fd9a78.js",
+  "js/main-6f8c66dd.js",
 ]
 `;
 

@@ -1,18 +1,17 @@
 const path = require('path');
 const { validate } = require('schema-utils');
 
-const optionsSchema = require('./options.schema.json')
+const optionsSchema = require('./options.schema.json');
 
 const PLUGIN_NAME = 'CopyAssetInMemoryPlugin';
 const TEMPLATE_REGEX = /\[\\*([\w:]+)\\*\]/i;
-
 
 class CopyAssetInMemoryPlugin {
   constructor(options) {
     validate(optionsSchema, options, {
       name: PLUGIN_NAME,
       baseDataPath: 'options',
-    })
+    });
 
     this.options = options;
 
@@ -28,12 +27,12 @@ class CopyAssetInMemoryPlugin {
       stage, transform, to, deleteOriginalAssets,
     } = this.options;
 
-    const { webpack } = compiler
-    const { Compilation, ModuleFilenameHelpers } = webpack
+    const { webpack } = compiler;
+    const { Compilation, ModuleFilenameHelpers } = webpack;
     const { RawSource } = webpack.sources;
 
     compiler.hooks.compilation.tap(PLUGIN_NAME, (compilation) => {
-      const logger = compilation.getLogger(PLUGIN_NAME)
+      const logger = compilation.getLogger(PLUGIN_NAME);
 
       compilation.hooks.processAssets.tapPromise(
         {
@@ -48,7 +47,7 @@ class CopyAssetInMemoryPlugin {
           const assetPromises = assetNames.map(async (assetName) => {
             const asset = compilation.getAsset(assetName);
 
-            logger.log(`processing: ${assetName}`)
+            logger.log(`processing: ${assetName}`);
 
             const result = {};
 
@@ -63,7 +62,7 @@ class CopyAssetInMemoryPlugin {
             }
 
             if (typeof to === 'string') {
-              result.name = path.join(to, assetName)
+              result.name = path.join(to, assetName);
               logger.log(`result asset destination '${result.name}'...`);
             }
 
@@ -74,9 +73,8 @@ class CopyAssetInMemoryPlugin {
 
             result.info = {
               ...asset.info,
-              copied: true
+              copied: true,
             };
-
 
             if (TEMPLATE_REGEX.test(result.name)) {
               const { outputOptions } = compilation;
@@ -115,21 +113,21 @@ class CopyAssetInMemoryPlugin {
                 info: assetInfo,
               } = compilation.getPathWithInfo(
                 result.name,
-                pathData
+                pathData,
               );
 
-              result.name = interpolatedFilename
+              result.name = interpolatedFilename;
               result.info = {
                 ...assetInfo,
-                ...result.info
-              }
+                ...result.info,
+              };
             }
 
-            const existingAsset = compilation.getAsset(result.name)
+            const existingAsset = compilation.getAsset(result.name);
+
             if (existingAsset) {
               logger.log(`asset ${assetName} already exists in compilation. skipping...`);
-
-              return
+              return;
             }
 
             if (deleteOriginalAssets) {

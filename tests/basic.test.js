@@ -15,20 +15,20 @@ const getAssetSize = (stats, assetName) => {
 };
 
 const hasAsset = (stats, assetName) => {
-  const assets = getAssetNames(stats)
+  const assets = getAssetNames(stats);
   if (assetName instanceof RegExp) {
-    return assets.some(name => assetName.test(name))
+    return assets.some((name) => assetName.test(name));
   }
 
-  return assets.includes(assetName)
-}
+  return assets.includes(assetName);
+};
 
 it('should do nothing when there is no change in filename', async () => {
   const compiler = getCompiler();
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
-    to: (fileName) => fileName
+    to: (fileName) => fileName,
   }).apply(compiler);
 
   const stats = await compile(compiler);
@@ -140,7 +140,7 @@ it('should deleteOriginalAsset', async () => {
 it('should add contenthash to the copied asset', async () => {
   const compiler = getCompiler();
 
-  const to = () => `js/[name]-[contenthash:8][ext]`;
+  const to = () => 'js/[name]-[contenthash:8][ext]';
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
@@ -151,7 +151,27 @@ it('should add contenthash to the copied asset', async () => {
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(hasAsset(stats, /js\/main-[a-z-0-9]{0,8}.js$/)).toBeTruthy()
+  expect(hasAsset(stats, /js\/main-[a-z-0-9]{0,8}.js$/)).toBeTruthy();
+  expect(assets.length).toBe(3);
+});
+
+it('should add contenthash to the copied asset with given salt', async () => {
+  const compiler = getCompiler(null, {
+    hashSalt: 'salt',
+  });
+
+  const to = () => 'js/[name]-[contenthash:8][ext]';
+
+  new CopyAssetInMemoryPlugin({
+    test: /.js$/,
+    to,
+  }).apply(compiler);
+
+  const stats = await compile(compiler);
+  const assets = getAssetNames(stats);
+
+  expect(assets).toMatchSnapshot('assets');
+  expect(hasAsset(stats, /js\/main-[a-z-0-9]{0,8}.js$/)).toBeTruthy();
   expect(assets.length).toBe(3);
 });
 
@@ -170,12 +190,12 @@ it('should work along with compression-webpack-plugin', async () => {
     exclude: /js/,
     deleteOriginalAssets: 'keep-source-map',
     minRatio: 10,
-  }).apply(compiler)
+  }).apply(compiler);
 
   const stats = await compile(compiler);
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(hasAsset(stats, 'js/main.js')).toBeTruthy()
+  expect(hasAsset(stats, 'js/main.js')).toBeTruthy();
   expect(assets.length).toBe(4);
 });

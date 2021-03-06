@@ -2,7 +2,7 @@ const path = require('path');
 
 const webpack = require('webpack');
 
-const getCompiler = (entry) => {
+const getCompiler = (entry, outputOptions = {}) => {
   const compiler = webpack({
     entry: entry || './index.js',
     mode: 'production',
@@ -10,7 +10,8 @@ const getCompiler = (entry) => {
     context: path.resolve(__dirname, '../fixtures'),
     output: {
       clean: true,
-    }
+      ...outputOptions,
+    },
   });
 
   return compiler;
