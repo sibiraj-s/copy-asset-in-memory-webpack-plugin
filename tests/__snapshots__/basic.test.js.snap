@@ -4,7 +4,7 @@ exports[`should add contenthash to the copied asset with given salt: assets 1`] 
 Array [
   "main.js",
   "main.js.map",
-  "js/main-6f8c66dd.js",
+  "js/main-dd4a453c.js",
 ]
 `;
 
@@ -12,7 +12,7 @@ exports[`should add contenthash to the copied asset: assets 1`] = `
 Array [
   "main.js",
   "main.js.map",
-  "js/main-6f8c66dd.js",
+  "js/main-dd4a453c.js",
 ]
 `;
 
