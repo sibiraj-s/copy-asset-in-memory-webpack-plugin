@@ -1,20 +1,11 @@
 const path = require('path');
 const { validate } = require('schema-utils');
-const { interpolateName } = require('loader-utils');
 
 const optionsSchema = require('./options.schema.json')
 
 const PLUGIN_NAME = 'CopyAssetInMemoryPlugin';
+const TEMPLATE_REGEX = /\[\\*([\w:]+)\\*\]/i;
 
-const isImmutable = (name) => {
-  return (/\[(?:([^:\]]+):)?(?:hash|contenthash)(?::([a-z]+\d*))?(?::(\d+))?\]/gi).test(name);
-};
-
-const isTemplate = (name) => {
-  const template = /(\[ext\])|(\[name\])|(\[path\])|(\[folder\])|(\[emoji(?::(\d+))?\])|(\[(?:([^:\]]+):)?(?:hash|contenthash)(?::([a-z]+\d*))?(?::(\d+))?\])|(\[\d+\])/;
-
-  return template.test(name);
-};
 
 class CopyAssetInMemoryPlugin {
   constructor(options) {
@@ -71,8 +62,8 @@ class CopyAssetInMemoryPlugin {
               result.source = asset.source;
             }
 
-            if(typeof to === 'string') {
-              result.name  = path.join(to, assetName)
+            if (typeof to === 'string') {
+              result.name = path.join(to, assetName)
               logger.log(`result asset destination '${result.name}'...`);
             }
 
@@ -86,22 +77,52 @@ class CopyAssetInMemoryPlugin {
               copied: true
             };
 
-            // check the transformed for immutable
-            const immutable = isImmutable(result.name)
-            if (immutable) {
-              result.info.immutable = true
-            }
 
-            if (isTemplate(result.name)) {
-              result.name = interpolateName(
-                {
-                  resourcePath: assetName,
+            if (TEMPLATE_REGEX.test(result.name)) {
+              const { outputOptions } = compilation;
+              const {
+                hashDigest,
+                hashDigestLength,
+                hashFunction,
+                hashSalt,
+              } = outputOptions;
+              const hash = compiler.webpack.util.createHash(hashFunction);
+
+              if (hashSalt) {
+                hash.update(hashSalt);
+              }
+
+              hash.update(result.source.source());
+
+              const fullContentHash = hash.digest(hashDigest);
+              const contentHash = fullContentHash.slice(0, hashDigestLength);
+              const ext = path.extname(assetName);
+              const base = path.basename(assetName);
+              const name = base.slice(0, base.length - ext.length);
+
+              const pathData = {
+                filename: assetName,
+                contentHash,
+                chunk: {
+                  name,
+                  hash: contentHash,
+                  contentHash,
                 },
+              };
+
+              const {
+                path: interpolatedFilename,
+                info: assetInfo,
+              } = compilation.getPathWithInfo(
                 result.name,
-                {
-                  content: result.source.source(),
-                },
+                pathData
               );
+
+              result.name = interpolatedFilename
+              result.info = {
+                ...assetInfo,
+                ...result.info
+              }
             }
 
             const existingAsset = compilation.getAsset(result.name)

@@ -102,7 +102,7 @@ it('should do copy assets to the new location and interpolate-name', async () =>
   const compiler = getCompiler();
 
   const newContent = 'new';
-  const to = (fileName) => `js/[path]-${fileName}`;
+  const to = (fileName) => `js/[base]-${fileName}`;
   const transform = (content) => `${content}${newContent}`;
 
   new CopyAssetInMemoryPlugin({
@@ -140,7 +140,7 @@ it('should deleteOriginalAsset', async () => {
 it('should add contenthash to the copied asset', async () => {
   const compiler = getCompiler();
 
-  const to = () => `js/[name]-[contenthash:8].[ext]`;
+  const to = () => `js/[name]-[contenthash:8][ext]`;
 
   new CopyAssetInMemoryPlugin({
     test: /.js$/,
@@ -151,7 +151,7 @@ it('should add contenthash to the copied asset', async () => {
   const assets = getAssetNames(stats);
 
   expect(assets).toMatchSnapshot('assets');
-  expect(hasAsset(stats, /js\/file-[a-z-0-9]{0,8}.js$/)).toBeTruthy()
+  expect(hasAsset(stats, /js\/main-[a-z-0-9]{0,8}.js$/)).toBeTruthy()
   expect(assets.length).toBe(3);
 });
 

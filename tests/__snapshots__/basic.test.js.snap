@@ -4,7 +4,7 @@ exports[`should add contenthash to the copied asset: assets 1`] = `
 Array [
   "main.js",
   "main.js.map",
-  "js/file-87fd9a78.js",
+  "js/main-87fd9a78.js",
 ]
 `;
 
