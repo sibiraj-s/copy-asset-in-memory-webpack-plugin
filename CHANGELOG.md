@@ -14,6 +14,13 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v3.1.0 (2021-03-06)
+
+#### Enhancements
+
+- drop loader-utils dependency ([cc9260d](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/cc9260d))
+- prefer webpack template strings ([cc9260d](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/cc9260d))
+
 ## v3.0.2 (2021-02-15)
 
 #### Bug Fixes
