@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v4.0.0 (2021-06-12)
+
+#### Breaking Changes
+
+- drop nodejs 10 support ([d29d4cb](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/d29d4cb))
+
 ## v3.1.0 (2021-03-06)
 
 #### Enhancements
