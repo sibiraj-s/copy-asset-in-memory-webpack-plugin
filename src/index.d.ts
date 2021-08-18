@@ -1,4 +1,4 @@
-import { Compiler } from 'webpack';
+import { Compiler, WebpackPluginInstance } from 'webpack';
 
 type Rule = string | RegExp | Array<string | RegExp>;
 
@@ -12,7 +12,7 @@ interface Options {
   deleteOriginalAssets?: boolean;
 }
 
-declare class CopyAssetInMemoryPlugin {
+declare class CopyAssetInMemoryPlugin implements WebpackPluginInstance {
   constructor(options: Options);
   apply(compiler: Compiler): void;
 }
