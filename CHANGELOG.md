@@ -14,6 +14,12 @@ All notable changes to this project will be documented in this file.
 > - Internal
 > - Unreleased
 
+## v4.0.1 (2021-12-31)
+
+#### Dependency Updates
+
+- update schema-utils to v4 ([aef5fa0](https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/commit/aef5fa0))
+
 ## v4.0.0 (2021-06-12)
 
 #### Breaking Changes
