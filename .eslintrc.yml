@@ -10,4 +10,3 @@ rules:
 
 env:
   browser: true
-  jest: true

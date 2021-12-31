@@ -1,7 +1,8 @@
+const { it, expect } = require('@jest/globals');
+const CompressionPlugin = require('compression-webpack-plugin');
+
 const getCompiler = require('./helpers/getCompiler');
 const compile = require('./helpers/compile');
-
-const CompressionPlugin = require('compression-webpack-plugin');
 const CopyAssetInMemoryPlugin = require('../src/index.js');
 
 const getAssetNames = (stats) => {
