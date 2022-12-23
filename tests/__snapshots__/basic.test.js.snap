@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should add contenthash to the copied asset with given salt: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/main-dd4a453c.js",
@@ -9,7 +9,7 @@ Array [
 `;
 
 exports[`should add contenthash to the copied asset: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/main-dd4a453c.js",
@@ -17,7 +17,7 @@ Array [
 `;
 
 exports[`should be able to transform file contents: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/transformed-main.js",
@@ -25,14 +25,14 @@ Array [
 `;
 
 exports[`should deleteOriginalAsset: assets 1`] = `
-Array [
+[
   "js/deleteOriginalAsset-main.js",
   "js/deleteOriginalAsset-main.js.map",
 ]
 `;
 
 exports[`should do copy assets to the new location and interpolate-name: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/main.js-main.js",
@@ -40,7 +40,7 @@ Array [
 `;
 
 exports[`should do copy assets to the new location for a given filter: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/main.js",
@@ -48,7 +48,7 @@ Array [
 `;
 
 exports[`should do copy assets to the new location when destination is a string: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/main.js",
@@ -56,14 +56,14 @@ Array [
 `;
 
 exports[`should do nothing when there is no change in filename: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
 ]
 `;
 
 exports[`should work along with compression-webpack-plugin: assets 1`] = `
-Array [
+[
   "main.js",
   "main.js.map",
   "js/main.js",
