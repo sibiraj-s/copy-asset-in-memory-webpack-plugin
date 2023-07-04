@@ -4,7 +4,7 @@ exports[`should add contenthash to the copied asset with given salt: assets 1`] 
 [
   "main.js",
   "main.js.map",
-  "js/main-dd4a453c.js",
+  "js/main-044bd014.js",
 ]
 `;
 
