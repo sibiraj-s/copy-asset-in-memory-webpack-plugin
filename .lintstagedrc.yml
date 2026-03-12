@@ -1,2 +1,2 @@
-"*.js": eslint --fix
-"*.{md,yml}": prettier --write
+'*.js': oxlint --fix
+'*.{md,yml}': oxfmt

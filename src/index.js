@@ -23,9 +23,7 @@ class CopyAssetInMemoryPlugin {
   }
 
   apply(compiler) {
-    const {
-      stage, transform, to, deleteOriginalAssets,
-    } = this.options;
+    const { stage, transform, to, deleteOriginalAssets } = this.options;
 
     const { webpack } = compiler;
     const { Compilation, ModuleFilenameHelpers } = webpack;
@@ -78,12 +76,7 @@ class CopyAssetInMemoryPlugin {
 
             if (TEMPLATE_REGEX.test(result.name)) {
               const { outputOptions } = compilation;
-              const {
-                hashDigest,
-                hashDigestLength,
-                hashFunction,
-                hashSalt,
-              } = outputOptions;
+              const { hashDigest, hashDigestLength, hashFunction, hashSalt } = outputOptions;
               const hash = compiler.webpack.util.createHash(hashFunction);
 
               if (hashSalt) {
@@ -108,10 +101,7 @@ class CopyAssetInMemoryPlugin {
                 },
               };
 
-              const {
-                path: interpolatedFilename,
-                info: assetInfo,
-              } = compilation.getPathWithInfo(
+              const { path: interpolatedFilename, info: assetInfo } = compilation.getPathWithInfo(
                 result.name,
                 pathData,
               );

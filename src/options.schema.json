@@ -35,10 +35,7 @@
   },
   "type": "object",
   "additionalProperties": false,
-  "required": [
-    "test",
-    "to"
-  ],
+  "required": ["test", "to"],
   "properties": {
     "test": {
       "description": "Include all assets that pass test assertion.",

@@ -28,13 +28,13 @@ yarn add --dev copy-asset-in-memory-webpack-plugin
 
 ```js
 // webpack.config.js
-const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
+const CopyAssetInMemoryPlugin = require('copy-asset-in-memory-webpack-plugin');
 
 module.exports = {
   plugins: [
     new CopyAssetInMemoryPlugin({
       test: /.js$/,
-      to: "js",
+      to: 'js',
     }),
   ],
 };
@@ -66,8 +66,8 @@ Refer https://webpack.js.org/api/compilation-hooks/#processassets for more info.
 
 ```js
 // webpack.config.js
-const { Compilation } = require("webpack");
-const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
+const { Compilation } = require('webpack');
+const CopyAssetInMemoryPlugin = require('copy-asset-in-memory-webpack-plugin');
 
 module.exports = {
   plugins: [
@@ -88,7 +88,7 @@ Type: `Function | string`. Default: `undefined`
 
 ```js
 // webpack.config.js
-const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
+const CopyAssetInMemoryPlugin = require('copy-asset-in-memory-webpack-plugin');
 
 module.exports = {
   plugins: [
@@ -98,7 +98,7 @@ module.exports = {
     }),
     new CopyAssetInMemoryPlugin({
       test: /.svg$/,
-      to: "assets", // copies all files into `assets` folder
+      to: 'assets', // copies all files into `assets` folder
     }),
   ],
 };
@@ -112,7 +112,7 @@ Type: `Function`. Default: `undefined`
 
 ```js
 // webpack.config.js
-const CopyAssetInMemoryPlugin = require("copy-asset-in-memory-webpack-plugin");
+const CopyAssetInMemoryPlugin = require('copy-asset-in-memory-webpack-plugin');
 
 module.exports = {
   plugins: [
@@ -121,7 +121,7 @@ module.exports = {
       to: (fileName) => `${js}/filename`,
       // The `content` argument is a [`Buffer`](https://nodejs.org/api/buffer.html) object
       // it could be converted to a `String` to be processed using `content.toString()`
-      transform: (content) => "newContent",
+      transform: (content) => 'newContent',
     }),
   ],
 };
