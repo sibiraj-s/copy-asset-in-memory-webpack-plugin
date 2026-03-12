@@ -10,6 +10,7 @@
     "webpack",
     "webpack-plugin"
   ],
+  "type": "commonjs",
   "homepage": "https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin#readme",
   "bugs": "https://github.com/sibiraj-s/copy-asset-in-memory-webpack-plugin/issues",
   "license": "MIT",
